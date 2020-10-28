@@ -116,7 +116,7 @@ resource "azurerm_application_gateway" "demo" {
 
   backend_address_pool {
     name         = "agw-demo-beap"
-    ip_addresses = [var.service_ip_green]
+    ip_addresses = var.service_switch == "blue" ? [var.service_ip_blue] : [var.service_ip_green]
   }
 
   backend_http_settings {

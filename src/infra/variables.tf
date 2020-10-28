@@ -64,6 +64,11 @@ variable "la_workspace_rg_name" {
   type = string
 }
 
+variable "service_switch" {
+  type    = string
+  default = "blue"
+}
+
 variable "service_ip_blue" {
   type    = string
   default = "192.168.1.100"
