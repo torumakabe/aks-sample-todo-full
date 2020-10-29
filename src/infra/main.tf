@@ -126,6 +126,10 @@ resource "azurerm_application_gateway" "demo" {
     port                  = 80
     protocol              = "Http"
     request_timeout       = 60
+    connection_draining {
+      enabled           = true
+      drain_timeout_sec = 10
+    }
   }
 
   http_listener {
@@ -142,6 +146,7 @@ resource "azurerm_application_gateway" "demo" {
     backend_address_pool_name  = "agw-demo-beap"
     backend_http_settings_name = "agw-demo-be-htst"
   }
+
 }
 
 resource "azurerm_sql_server" "demo" {
