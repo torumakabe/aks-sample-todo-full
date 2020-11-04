@@ -1,15 +1,27 @@
 terraform {
   required_version = "~> 0.13.5"
+
+  required_providers {
+    azurerm = {
+      source  = "hashicorp/azurerm"
+      version = "~> 2.34"
+    }
+  }
 }
 
 
 provider "azurerm" {
-  version = "~>2.33"
   features {}
 }
 
 provider "null" {
   version = "~> 3"
+}
+
+data "azurerm_kubernetes_service_versions" "current" {
+  location        = var.location
+  version_prefix  = "1.18"
+  include_preview = false
 }
 
 data "azurerm_log_analytics_workspace" "demo" {
