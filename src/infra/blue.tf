@@ -1,7 +1,8 @@
 resource "azurerm_kubernetes_cluster" "blue" {
-  depends_on          = [azurerm_subnet_route_table_association.blue]
-  name                = "${var.aks_cluster_name}-blue"
-  kubernetes_version  = "1.18.8"
+  depends_on         = [azurerm_subnet_route_table_association.blue]
+  name               = "${var.aks_cluster_name}-blue"
+  kubernetes_version = data.azurerm_kubernetes_service_versions.current.latest_version
+  //kubernetes_version  = "1.18.10"
   location            = azurerm_resource_group.demo.location
   resource_group_name = azurerm_resource_group.demo.name
   dns_prefix          = var.aks_cluster_name
