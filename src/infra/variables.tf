@@ -71,12 +71,12 @@ variable "service_switch" {
 
 variable "service_ip_blue" {
   type    = string
-  default = "192.168.1.100"
+  default = "198.18.0.20"
 }
 
 variable "service_ip_green" {
   type    = string
-  default = "192.168.2.100"
+  default = "198.18.0.21"
 }
 
 variable "ai_key" {

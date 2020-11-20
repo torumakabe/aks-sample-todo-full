@@ -19,7 +19,7 @@ resource "azurerm_kubernetes_cluster" "green" {
     type               = "VirtualMachineScaleSets"
     availability_zones = [1, 2, 3]
     node_count         = 3
-    vm_size            = "Standard_F2s_v2"
+    vm_size            = "Standard_DS2_v2"
     vnet_subnet_id     = azurerm_subnet.green.id
   }
 
@@ -97,7 +97,8 @@ resource "kubernetes_service" "todoapp_green" {
   metadata {
     name = "todoapp"
     annotations = {
-      "service.beta.kubernetes.io/azure-load-balancer-internal" = "true"
+      "service.beta.kubernetes.io/azure-load-balancer-internal"        = "true"
+      "service.beta.kubernetes.io/azure-load-balancer-internal-subnet" = azurerm_subnet.ilb.name
     }
   }
 

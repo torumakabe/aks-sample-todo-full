@@ -4,7 +4,7 @@ terraform {
   required_providers {
     azurerm = {
       source  = "hashicorp/azurerm"
-      version = "~> 2.34"
+      version = "~> 2.37"
     }
   }
 }
@@ -38,21 +38,28 @@ resource "azurerm_virtual_network" "demo" {
   name                = "vnet-demo"
   resource_group_name = azurerm_resource_group.demo.name
   location            = azurerm_resource_group.demo.location
-  address_space       = ["192.168.0.0/16"]
+  address_space       = ["198.18.0.0/25"]
 }
 
 resource "azurerm_subnet" "agw" {
   name                 = "subnet-agw"
   resource_group_name  = azurerm_resource_group.demo.name
   virtual_network_name = azurerm_virtual_network.demo.name
-  address_prefixes     = ["192.168.0.0/24"]
+  address_prefixes     = ["198.18.0.0/28"]
+}
+
+resource "azurerm_subnet" "ilb" {
+  name                 = "subnet-ilb"
+  resource_group_name  = azurerm_resource_group.demo.name
+  virtual_network_name = azurerm_virtual_network.demo.name
+  address_prefixes     = ["198.18.0.16/28"]
 }
 
 resource "azurerm_subnet" "blue" {
   name                 = "subnet-blue"
   resource_group_name  = azurerm_resource_group.demo.name
   virtual_network_name = azurerm_virtual_network.demo.name
-  address_prefixes     = ["192.168.1.0/24"]
+  address_prefixes     = ["198.18.0.32/28"]
 }
 
 resource "azurerm_route_table" "blue" {
@@ -70,7 +77,7 @@ resource "azurerm_subnet" "green" {
   name                 = "subnet-green"
   resource_group_name  = azurerm_resource_group.demo.name
   virtual_network_name = azurerm_virtual_network.demo.name
-  address_prefixes     = ["192.168.2.0/24"]
+  address_prefixes     = ["198.18.0.48/28"]
 }
 
 resource "azurerm_route_table" "green" {
@@ -88,7 +95,7 @@ resource "azurerm_subnet" "private_endpoint" {
   name                                           = "subnet-private-endpoint"
   resource_group_name                            = azurerm_resource_group.demo.name
   virtual_network_name                           = azurerm_virtual_network.demo.name
-  address_prefixes                               = ["192.168.3.0/24"]
+  address_prefixes                               = ["198.18.0.64/28"]
   enforce_private_link_endpoint_network_policies = true
 }
 
