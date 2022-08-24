@@ -96,7 +96,6 @@ resource "azurerm_subnet" "private_endpoint" {
   resource_group_name                            = azurerm_resource_group.demo.name
   virtual_network_name                           = azurerm_virtual_network.demo.name
   address_prefixes                               = ["198.18.0.64/28"]
-  enforce_private_link_endpoint_network_policies = true
 }
 
 resource "azurerm_public_ip" "demo" {
